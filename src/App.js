@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { ToastContainer } from "react-toastify";
+import { Route, Switch, Redirect } from "react-router-dom";
+import NavBar from "./components/common/navBar";
+import TodoList from "./components/todoList";
+import DoneList from "./components/doneList";
+import ProtectedRoute from "./components/common/protectedRoute";
+import RegisterForm from "./components/registerForm";
+import LoginForm from "./components/loginForm";
+import NotFound from "./components/common/notFound";
+import Profile from "./components/profile";
+import Logout from "./components/logout";
+import "react-toastify/dist/ReactToastify.css";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+      <React.Fragment>
+        <ToastContainer />
+        <NavBar />
+        <main className="container">
+          <Switch>
+            <Route path="/register" component={RegisterForm} />
+            <Route path="/login" component={LoginForm} />
+            <ProtectedRoute path="/profile" component={Profile} />
+            <ProtectedRoute path="/logout" component={Logout} />
+            <ProtectedRoute path="/todoList" component={TodoList} />
+            <ProtectedRoute path="/doneList" component={DoneList} />
+            <Redirect exact from="/" to="/todoList" />
+            <Route path="/not-found" component={NotFound} />
+            <Redirect to="/not-found" />
+          </Switch>{" "}
+        </main>
+      </React.Fragment>
+    );
+  }
 }
 
 export default App;
