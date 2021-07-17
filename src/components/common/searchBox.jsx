@@ -11,6 +11,11 @@ const SearchBox = ({ value, onSearch }) => {
         className="form-control"
         placeholder="Search Task..."
       />
+      <div className="input-group-append">
+        <button className="btn btn-primary btn-sm">
+          <i className="fa fa-search"></i>
+        </button>
+      </div>
     </div>
   );
 };

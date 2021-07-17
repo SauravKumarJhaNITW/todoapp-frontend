@@ -8,6 +8,7 @@ import ProtectedRoute from "./components/common/protectedRoute";
 import RegisterForm from "./components/registerForm";
 import LoginForm from "./components/loginForm";
 import NotFound from "./components/common/notFound";
+import TodoForm from "./components/todoForm";
 import Profile from "./components/profile";
 import Logout from "./components/logout";
 import "react-toastify/dist/ReactToastify.css";
@@ -24,7 +25,8 @@ class App extends Component {
             <Route path="/login" component={LoginForm} />
             <ProtectedRoute path="/profile" component={Profile} />
             <ProtectedRoute path="/logout" component={Logout} />
-            <ProtectedRoute path="/todoList" component={TodoList} />
+            <ProtectedRoute path="/todoList/:_id/:task" component={TodoForm} />
+            <ProtectedRoute exact path="/todoList" component={TodoList} />
             <ProtectedRoute path="/doneList" component={DoneList} />
             <Redirect exact from="/" to="/todoList" />
             <Route path="/not-found" component={NotFound} />

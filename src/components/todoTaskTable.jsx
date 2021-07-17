@@ -1,8 +1,9 @@
 import moment from "moment";
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 import Table from "./common/table";
 
-class TaskTable extends Component {
+class TodoTaskTable extends Component {
   columns = [
     { path: "task", label: "Task" },
     {
@@ -16,34 +17,37 @@ class TaskTable extends Component {
     },
     {
       label: "",
+      key: "done icon",
       content: (todo) => (
         <i
-          style={{ color: "green" }}
+          style={{ color: "green", cursor: "pointer" }}
           title="mark as done"
-          onClick={this.props.handleMoveToDone(todo)}
+          onClick={() => this.props.onMoveToDone(todo)}
           className="fa fa-check-circle icon-class"
         ></i>
       ),
     },
     {
       label: "",
+      key: "edit icon",
       content: (todo) => (
-        <i
-          style={{ color: "hotpink" }}
-          title="edit task"
-          className="fa fa-edit icon-class"
-          onClick={this.props.handleEdit(todo)}
-        ></i>
+        <Link to={`/todoList/${todo._id}/${todo.task}`}>
+          <i
+            style={{ color: "hotpink", cursor: "pointer" }}
+            title="edit task"
+            className="fa fa-edit icon-class"
+          ></i>
+        </Link>
       ),
     },
     {
-      label: "",
+      key: "remove icon",
       content: (todo) => (
         <i
-          style={{ color: "red" }}
+          style={{ color: "red", cursor: "pointer" }}
           title="remove task"
           className="fa fa-times-circle icon-class"
-          onClick={this.props.handleRemove(todo)}
+          onClick={() => this.props.onRemove(todo)}
         ></i>
       ),
     },
@@ -61,4 +65,4 @@ class TaskTable extends Component {
   }
 }
 
-export default TaskTable;
+export default TodoTaskTable;

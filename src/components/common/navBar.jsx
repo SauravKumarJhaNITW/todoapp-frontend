@@ -23,16 +23,6 @@ const NavBar = () => {
       </button>
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav">
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/todoList">
-              Todo List
-            </NavLink>
-          </li>
-          <li className="nav-item">
-            <NavLink className="nav-link" to="/doneList">
-              Done List
-            </NavLink>
-          </li>
           {!user && (
             <React.Fragment>
               <li className="nav-item">
@@ -49,6 +39,16 @@ const NavBar = () => {
           )}
           {user && (
             <React.Fragment>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/todoList">
+                  Todo List
+                </NavLink>
+              </li>
+              <li className="nav-item">
+                <NavLink className="nav-link" to="/doneList">
+                  Done List
+                </NavLink>
+              </li>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/profile">
                   Profile

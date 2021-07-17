@@ -7,7 +7,7 @@ export async function getTodoList() {
   return todos;
 }
 
-export async function modifyTask({ task, _id }) {
+export async function modifyTask(task, _id) {
   const { data: todo } = await http.put(apiEndpoint + "/" + _id, {
     task,
   });
@@ -22,7 +22,9 @@ export async function addTask(task) {
 }
 
 export async function deleteTodo(_id, moveToDone) {
-  await http.delete(apiEndpoint + "/" + _id, { moveToDone });
+  try {
+    await http.put(apiEndpoint + "/delete/" + _id, { moveToDone });
+  } catch (ex) {}
 }
 
 export async function deleteAllTodos() {

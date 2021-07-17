@@ -4,16 +4,10 @@ import TableBody from "./tableBody";
 
 const Table = ({ columns, sortColumn, onSort, items }) => {
   return (
-    <div className="table-responsive">
-      <table className="table">
-        <TableHeader
-          columns={columns}
-          sortColumn={sortColumn}
-          onSort={onSort}
-        />
-        <TableBody items={items} columns={columns} />
-      </table>
-    </div>
+    <table className="table">
+      <TableHeader columns={columns} sortColumn={sortColumn} onSort={onSort} />
+      <TableBody items={items} columns={columns} />
+    </table>
   );
 };
 

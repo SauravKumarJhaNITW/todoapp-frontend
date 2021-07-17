@@ -8,9 +8,11 @@ export async function getDoneList() {
 }
 
 export async function deleteDone(_id) {
-  await http.delete(apiEndpoint + "/" + _id);
+  try {
+    await http.delete(apiEndpoint + "/" + _id);
+  } catch (ex) {}
 }
 
-export async function deleteAllDone() {
+export async function deleteAllDones() {
   await http.delete(apiEndpoint + "/all");
 }

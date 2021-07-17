@@ -1,10 +1,17 @@
 import React, { Component } from "react";
-import { addTask, deleteAllTodos, getTodoList } from "../services/todoService";
+import _ from "lodash";
+import {
+  addTask,
+  deleteAllTodos,
+  deleteTodo,
+  getTodoList,
+} from "../services/todoService";
 import ButtonBox from "./common/buttonBox";
 import SearchBox from "./common/searchBox";
-import TaskTable from "./taskTable";
+import TodoTaskTable from "./todoTaskTable";
 import Pagination from "./common/pagination";
 import ClearAll from "./clearAll";
+import { paginate } from "../utils/paginate";
 
 class TodoList extends Component {
   state = {
@@ -19,7 +26,7 @@ class TodoList extends Component {
 
   async componentDidMount() {
     const todos = await getTodoList();
-    this.setState({ todos });
+    this.setState({ todos, flag: true });
   }
 
   handleChange = (addQuery) => {
@@ -35,15 +42,22 @@ class TodoList extends Component {
     this.setState({ addQuery });
   };
 
-  handleMoveToDone = (todo) => {};
-
-  handleSearch = (searchQuery) => {};
-
-  handleEdit = () => {
-    console.log("edit method called");
+  handleMoveToDone = async (todo) => {
+    await deleteTodo(todo._id, true);
+    window.location.reload();
   };
 
-  handleRemove = () => {};
+  handleSearch = (searchQuery) => {
+    this.setState({
+      searchQuery,
+      currentPage: 1,
+    });
+  };
+
+  handleRemove = async (todo) => {
+    await deleteTodo(todo._id);
+    window.location.reload();
+  };
 
   handleAdd = async () => {
     if (this.state.addQuery.length === 0) {
@@ -53,40 +67,81 @@ class TodoList extends Component {
     } else {
       await addTask(this.state.addQuery);
       this.setState({ addQuery: "" });
-      window.location = "/todoList";
+      window.location.reload();
     }
   };
 
+  handlePageChange = (page) => {
+    this.setState({ currentPage: page });
+  };
+
   handleClearAll = async () => {
-    if (window.confirm("Are you sure you want to delete all tasks?"))
+    if (window.confirm("Are you sure you want to delete all tasks?")) {
       await deleteAllTodos();
+      window.location.reload();
+    }
+  };
+
+  handleSort = (sortColumn) => {
+    this.setState({ sortColumn });
   };
 
   render() {
+    let filtered = this.state.todos;
+
+    if (this.state.searchQuery) {
+      filtered = this.state.todos.filter((m) =>
+        m.task.toLowerCase().startsWith(this.state.searchQuery.toLowerCase())
+      );
+    }
+
+    const sorted = _.orderBy(
+      filtered,
+      [this.state.sortColumn.path],
+      [this.state.sortColumn.order]
+    );
+    const todos = paginate(sorted, this.state.currentPage, this.state.pageSize);
+    if (!this.state.flag)
+      return (
+        <div className="text-center">
+          <h3>Loading....</h3>
+        </div>
+      );
     return (
       <React.Fragment>
-        <h1 style={{ color: "blueviolet" }} className="text-center">
+        <h2 style={{ color: "blueviolet" }} className="text-center">
           To Do List
-        </h1>
+        </h2>
         <ButtonBox
           onChange={(addQuery) => this.handleChange(addQuery)}
           onAdd={this.handleAdd}
           value={this.state.addQuery}
           error={this.state.error.addQuery}
         />
-        <SearchBox
-          value={this.state.searchQuery}
-          onSearch={(searchQuery) => this.handleSearch(searchQuery)}
-        />
-        <TaskTable
-          todos={this.state.todos}
-          sortColumn={this.state.sortColumn}
-          handleMoveToDone={this.handleMoveToDone}
-          handleEdit={this.handleEdit}
-          handleRemove={this.handleRemove}
-        />
-        <Pagination />
-        <ClearAll onClearAll={this.handleClearAll} />
+
+        {this.state.todos.length > 0 && (
+          <React.Fragment>
+            <SearchBox
+              value={this.state.searchQuery}
+              onSearch={(searchQuery) => this.handleSearch(searchQuery)}
+            />
+            <TodoTaskTable
+              todos={todos}
+              sortColumn={this.state.sortColumn}
+              onMoveToDone={this.handleMoveToDone}
+              onEdit={this.handleEdit}
+              onRemove={this.handleRemove}
+              onSort={this.handleSort}
+            />
+            <Pagination
+              itemsCount={filtered.length}
+              pageSize={this.state.pageSize}
+              onPageChange={this.handlePageChange}
+              currentPage={this.state.currentPage}
+            />
+            <ClearAll onClearAll={this.handleClearAll} />
+          </React.Fragment>
+        )}
       </React.Fragment>
     );
   }

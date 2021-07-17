@@ -18,7 +18,10 @@ class TableBody extends Component {
         {items.map((item) => (
           <tr key={item._id}>
             {columns.map((column) => (
-              <td key={this.createKey(item, column)}>
+              <td
+                style={{ maxWidth: "30vw", overflowWrap: "break-word" }}
+                key={this.createKey(item, column)}
+              >
                 {this.renderCell(item, column)}
               </td>
             ))}
