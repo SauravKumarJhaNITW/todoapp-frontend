@@ -16,6 +16,15 @@ class TodoTaskTable extends Component {
       },
     },
     {
+      path: "dueDate",
+      label: "Due Date",
+      content: (todo) => {
+        return moment(moment.utc(todo.dueDate).toDate())
+          .local()
+          .format("YYYY-MM-DD HH:mm:ss");
+      },
+    },
+    {
       label: "",
       key: "done icon",
       content: (todo) => (

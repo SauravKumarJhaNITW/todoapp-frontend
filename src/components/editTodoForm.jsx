@@ -3,7 +3,7 @@ import Joi from "joi-browser";
 import Form from "./common/form";
 import { modifyTask } from "../services/todoService";
 
-class TodoForm extends Form {
+class EditTodoForm extends Form {
   state = {
     data: {
       task: "",
@@ -59,4 +59,4 @@ class TodoForm extends Form {
   }
 }
 
-export default TodoForm;
+export default EditTodoForm;

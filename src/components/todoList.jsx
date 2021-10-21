@@ -1,12 +1,11 @@
 import React, { Component } from "react";
 import _ from "lodash";
 import {
-  addTask,
   deleteAllTodos,
   deleteTodo,
   getTodoList,
 } from "../services/todoService";
-import ButtonBox from "./common/buttonBox";
+import AddTodo from "./addTodo";
 import SearchBox from "./common/searchBox";
 import TodoTaskTable from "./todoTaskTable";
 import Pagination from "./common/pagination";
@@ -16,31 +15,16 @@ import { paginate } from "../utils/paginate";
 class TodoList extends Component {
   state = {
     todos: [],
-    addQuery: "",
     searchQuery: "",
     currentPage: 1,
     pageSize: 4,
     sortColumn: { path: "task", order: "asc" },
-    error: {},
   };
 
   async componentDidMount() {
     const todos = await getTodoList();
     this.setState({ todos, flag: true });
   }
-
-  handleChange = (addQuery) => {
-    if (addQuery.length === 0) {
-      const error = { ...this.state.error };
-      error.addQuery = "Task should be non-empty";
-      this.setState({ error });
-    } else {
-      const error = { ...this.state.error };
-      error.addQuery = "";
-      this.setState({ error });
-    }
-    this.setState({ addQuery });
-  };
 
   handleMoveToDone = async (todo) => {
     await deleteTodo(todo._id, true);
@@ -57,18 +41,6 @@ class TodoList extends Component {
   handleRemove = async (todo) => {
     await deleteTodo(todo._id);
     window.location.reload();
-  };
-
-  handleAdd = async () => {
-    if (this.state.addQuery.length === 0) {
-      const error = { ...this.state.error };
-      error.addQuery = "Task should be non-empty";
-      this.setState({ error });
-    } else {
-      await addTask(this.state.addQuery);
-      this.setState({ addQuery: "" });
-      window.location.reload();
-    }
   };
 
   handlePageChange = (page) => {
@@ -112,13 +84,7 @@ class TodoList extends Component {
         <h2 style={{ color: "blueviolet" }} className="text-center">
           To Do List
         </h2>
-        <ButtonBox
-          onChange={(addQuery) => this.handleChange(addQuery)}
-          onAdd={this.handleAdd}
-          value={this.state.addQuery}
-          error={this.state.error.addQuery}
-        />
-
+        <AddTodo />
         {this.state.todos.length > 0 && (
           <React.Fragment>
             <SearchBox

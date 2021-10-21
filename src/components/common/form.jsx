@@ -55,6 +55,21 @@ class Form extends Component {
     );
   }
 
+  renderDateInput(name, label, type = "text", min) {
+    const { data, errors } = this.state;
+    return (
+      <Input
+        type={type}
+        name={name}
+        min={min}
+        onChange={this.handleInputChange}
+        value={data[name]}
+        label={label}
+        error={errors[name]}
+      />
+    );
+  }
+
   renderInput(name, label, type = "text") {
     const { data, errors } = this.state;
     return (

@@ -14,9 +14,10 @@ export async function modifyTask(task, _id) {
   return todo;
 }
 
-export async function addTask(task) {
+export async function addTask(task, dueDate) {
   const { data } = await http.post(apiEndpoint, {
     task,
+    dueDate,
   });
   return data;
 }
