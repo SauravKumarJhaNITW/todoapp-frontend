@@ -3,7 +3,11 @@ import { getCurrentUser } from "../services/authService";
 
 const Profile = () => {
   const user = getCurrentUser();
-  return <h1>Hello {user.username}</h1>;
+  return (
+    <div>
+      <h1>Hello {user.username}</h1>
+    </div>
+  );
 };
 
 export default Profile;

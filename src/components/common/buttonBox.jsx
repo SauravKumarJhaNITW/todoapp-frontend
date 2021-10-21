@@ -1,3 +1,4 @@
+import moment from "moment";
 import React from "react";
 
 const ButtonBox = ({ value, onChange, onAdd, error }) => {
@@ -11,7 +12,15 @@ const ButtonBox = ({ value, onChange, onAdd, error }) => {
           placeholder="Add Task To do..."
           name="query"
           value={value}
-        />{" "}
+        />
+        {/* <input
+          onChange={(e) => onChange(e.currentTarget.value)}
+          type="datetime-local"
+          className="form-control"
+          name="dueDate"
+          value={value}
+          min={today()}
+        />{" "} */}
         <div className="input-group-append">
           <button
             className="btn btn-primary btn-sm"
@@ -25,6 +34,11 @@ const ButtonBox = ({ value, onChange, onAdd, error }) => {
       {error && <div className="alert alert-danger">{error}</div>}
     </div>
   );
+
+  function today() {
+    console.log(moment());
+    return moment().format("YYYY-MM-DDThh:mm");
+  }
 };
 
 export default ButtonBox;
