@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import _ from "lodash";
+import loading from "./loading.gif";
 import {
   deleteAllTodos,
   deleteTodo,
@@ -75,8 +76,12 @@ class TodoList extends Component {
     const todos = paginate(sorted, this.state.currentPage, this.state.pageSize);
     if (!this.state.flag)
       return (
-        <div className="text-center">
-          <h3>Loading....</h3>
+        <div style={{ textAlign: "center" }}>
+          <img
+            style={{ maxHeight: "80%", maxWidth: "80%", objectFit: "contain" }}
+            src={loading}
+            alt="Loading..."
+          ></img>
         </div>
       );
     return (

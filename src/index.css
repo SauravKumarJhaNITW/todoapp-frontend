@@ -1,25 +1,27 @@
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  background-color: rgb(255, 255, 255);
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: rgb(255, 255, 255);
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 @media screen and (min-width: 600px) {
-  .custom-class {
-    float: left;
-    width: 46%;
-    margin: 2%;
-  }
-  .icon-class {
-    font-size: 2vw;
-  }
+    .custom-class {
+        float: left;
+        width: 46%;
+        margin: 2%;
+    }
+    .icon-class {
+        font-size: 2vw;
+    }
+}
+
+input[type="checkbox"] {
+    margin: auto;
+    width: 50px;
 }

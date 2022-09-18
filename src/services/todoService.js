@@ -1,5 +1,4 @@
 import http from "./httpService";
-
 const apiEndpoint = "/todos";
 
 export async function getTodoList() {

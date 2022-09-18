@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import loading from "./loading.gif";
 import _ from "lodash";
 import {
   deleteAllDones,
@@ -70,8 +71,12 @@ class DoneList extends Component {
     const dones = paginate(sorted, this.state.currentPage, this.state.pageSize);
     if (!this.state.flag)
       return (
-        <div className="text-center">
-          <h3>Loading....</h3>
+        <div className="container">
+          <img
+            style={{ marginLeft: "10vw", marginRight: "10vw" }}
+            src={loading}
+            alt="Loading..."
+          ></img>
         </div>
       );
     return (

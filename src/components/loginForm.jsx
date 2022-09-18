@@ -3,19 +3,24 @@ import Joi from "joi-browser";
 import Form from "./common/form";
 import { getCurrentUser, login } from "../services/authService";
 import { Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class LoginForm extends Form {
   state = {
     data: {
       username: "",
       password: "",
+      rememberMe: false,
     },
-    errors: {},
+    errors: {}
   };
 
+  refreshId
+
   schema = {
-    username: Joi.string().required().label("Username"),
+    username: Joi.string().email().required().label("Email"),
     password: Joi.string().required().label("Password"),
+    rememberMe: Joi.boolean().label("Remember me"),
   };
 
   doSubmit = async () => {
@@ -50,12 +55,15 @@ class LoginForm extends Form {
             "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
         }}
       >
-        <h2>Login</h2>
         <form onSubmit={this.handleSubmit}>
-          {this.renderInput("username", "Username")}
+          {this.renderInput("username", "Email")}
           {this.renderInput("password", "Password", "password")}
+
+          {this.renderInput("rememberMe", "Remember Me", "checkbox")}
           {this.renderButton("Login")}
         </form>
+        <h3>OR</h3>
+        <Link to="/">forgot password</Link>
       </div>
     );
   }

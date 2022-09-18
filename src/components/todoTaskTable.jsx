@@ -29,7 +29,7 @@ class TodoTaskTable extends Component {
       key: "done icon",
       content: (todo) => (
         <i
-          style={{ color: "green", cursor: "pointer" }}
+          style={{ color: "#42f542", cursor: "pointer" }}
           title="mark as done"
           onClick={() => this.props.onMoveToDone(todo)}
           className="fa fa-check-circle icon-class"

@@ -4,7 +4,6 @@ import "bootstrap/js/src/collapse.js";
 import { getCurrentUser } from "../../services/authService";
 
 const NavBar = () => {
-  const user = getCurrentUser();
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
       <Link className="navbar-brand" to="/">
@@ -23,7 +22,7 @@ const NavBar = () => {
       </button>
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav">
-          {!user && (
+          {!getCurrentUser() && (
             <React.Fragment>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/login">
@@ -37,7 +36,7 @@ const NavBar = () => {
               </li>
             </React.Fragment>
           )}
-          {user && (
+          {getCurrentUser() && (
             <React.Fragment>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/todoList">

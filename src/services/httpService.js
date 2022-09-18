@@ -1,10 +1,18 @@
 import axios from "axios";
 import { toast } from "react-toastify";
+import { logout } from "./authService";
 import { log } from "./logService";
 
 axios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 axios.interceptors.response.use(null, (error) => {
+  const authenticationError = error.response && error.response.status === 403;
+  if (authenticationError) {
+    console.log("auth error occ");
+    logout();
+    window.location = "/";
+  }
+
   const expectedError =
     error.response &&
     error.response.status >= 400 &&
