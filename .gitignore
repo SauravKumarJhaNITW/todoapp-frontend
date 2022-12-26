@@ -9,7 +9,7 @@
 /coverage
 
 # production
-# /build
+/build
 
 # misc
 .DS_Store
@@ -27,3 +27,5 @@ yarn-error.log*
 .env.development
 challenges.txt
 flow.txt
+# Local Netlify folder
+.netlify
